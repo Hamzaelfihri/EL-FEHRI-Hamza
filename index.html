@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Design de Portfolio Réactif</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+:root{
+    --main-color:#3b82f6;
+    --white:#F297DF;
+    --text-color:#FFF;
+    --bg-color:#080808;
+    --second-bg-color:#151515;
+    --light-color:#3b82f6;
+}
+
+body.light-mode {
+    --main-color:#2563eb;
+    --text-color:#1f2937;
+    --bg-color:#f3f4f6;
+    --second-bg-color:#e5e7eb;
+    --light-color:#2563eb;
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+::-webkit-scrollbar{
+    width: 1rem;
+}
+::-webkit-scrollbar-track{
+    background: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background: var(--main-color);
+    border-radius: 5rem;
+}
+
+html{
+    font-size: 63.5%;
+}
+body{
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logo{
+    font-size: 2.2rem;
+    color: var(--text-color);
+    font-weight: 700;
+    animation: slideInLeft 1s ease;
+}
+
+.logo span{
+    color: var(--main-color);
+}
+
+.theme-toggle {
+    cursor: pointer;
+    order: 2;
+}
+
+.theme-toggle i {
+    color: var(--main-color);
+    font-size: 2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle i:hover {
+    transform: rotate(360deg);
+    color: var(--white);
+}
+
+.header .navbar{
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.header .navbar a{
+    font-size: 1.6rem;
+    color: var(--text-color);
+    font-weight: 500;
+    margin: 0 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.header .navbar a.active{
+    color: var(--main-color);
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.header .navbar a:hover{
+    color: var(--main-color);
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+section{
+    padding: 6rem 5%;
+}
+
+.home{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    background: linear-gradient(135deg, var(--bg-color), var(--second-bg-color));
+    animation: fadeIn 1.5s ease;
+}
+
+.home .content{
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    animation: slideInUp 1s ease;
+}
+
+.home .content h1{
+    font-size: 4.5rem;
+    color: var(--text-color);
+}
+
+.home .content h1 span{
+    color: var(--main-color);
+}
+
+.home .content h3{
+    font-size: 2.2rem;
+    color: var(--text-color);
+}
+
+.home .content p{
+    color: var(--text-color);
+    font-size: 1.4rem;
+    text-transform: lowercase;
+    line-height: 1.8;
+    width: 50rem;
+    text-align: left;
+}
+
+.home .content .flex-btn .btn{
+    color: var(--main-color);
+    background-color: transparent;
+    padding: 1rem 2.5rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    border: .2rem solid var(--main-color);
+    border-radius: 3rem;
+    transition: all 0.3s ease;
+}
+
+.home .content .flex-btn .btn.hire{
+    background-color: var(--main-color);
+    color: #FFF;
+    border: none;
+}
+
+.home .content .flex-btn .btn:hover{
+    background-color: var(--main-color);
+    color: #FFF;
+    box-shadow: 0 0 15px var(--main-color);
+    transform: translateY(-3px);
+}
+
+.home .content .icons{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.home .content .icons a i{
+    color: var(--main-color);
+    font-size: 2.2rem;
+    border: .2rem solid var(--main-color);
+    padding: 1rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.home .content .icons a i:hover{
+    background-color: var(--main-color);
+    color: #FFF;
+    box-shadow: 0 0 15px var(--main-color);
+    transform: rotate(360deg);
+}
+
+.home img{
+    border-radius: 50%;
+    height: 45rem;
+    width: 45rem;
+    object-fit: cover;
+    box-shadow: 0 0 2.5rem var(--main-color);
+    animation: float 3s ease-in-out infinite;
+}
+
+.home img:hover{
+    box-shadow: 0 0 3rem var(--main-color),
+                0 0 6rem var(--main-color);
+}
+
+.text-animation{
+    font-size: 2.2rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.text-animation span{
+    position: relative;
+}
+
+.text-animation span::before{
+    content: "développeur web";
+    color: var(--main-color);
+    animation: words 20s infinite;
+}
+
+.text-animation span::after{
+    content: "";
+    background-color: var(--bg-color);
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 100%;
+    border-left: 3px solid var(--main-color);
+    right: -8px;
+    animation: cursor 0.6s infinite, typing 20s steps(14) infinite;
+}
+
+@keyframes cursor{
+    to{
+        border-left: 3px solid var(--main-color);
+    }
+}
+
+@keyframes words{
+    0%, 10%{
+        content: "développeur web";
+    }
+    11%, 20%{
+        content: "développeur web";
+    }
+    21%, 40%{
+        content: "développeur full stack";
+    }
+    41%, 60%{
+        content: "data analyst";
+    }
+    61%, 80%{
+        content: "spécialisé en SAP FICO";
+    }
+    81%, 100%{
+        content: "développeur web";
+    }
+}
+
+@keyframes typing{
+    10%, 15%, 30%, 35%, 50%, 55%, 70%, 75%, 90%, 95%{
+        width: 0;
+    }
+    5%, 20%, 25%, 40%, 45%, 60%, 65%, 80%, 85%{
+        width: calc(100% + 8px);
+    }
+}
+
+@keyframes fadeIn{
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideInUp{
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInLeft{
+    0% { transform: translateX(-50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes float{
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.menu i{
+    color: var(--white);
+    font-size: 2.2rem;
+    display: none;
+    cursor: pointer;
+}
+
+.menu i:hover{
+    color: var(--main-color);
+    text-shadow: 0 0 10px var(--main-color);
+}
+
+.education{
+    padding-top: 6rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--second-bg-color);
+    animation: fadeIn 1s ease;
+}
+
+.education .heading{
+    font-size: 5rem;
+    color: var(--text-color);
+    margin-bottom: 7rem;
+    animation: slideInUp 1s ease;
+}
+
+.education .timeline-items{
+    max-width: 75rem;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.education .timeline-items::before{
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: var(--main-color);
+    left: calc(50% - 2.5px);
+}
+
+.education .timeline-item{
+    margin-bottom: 4rem;
+    width: 100%;
+    position: relative;
+    animation: slideInUp 1s ease;
+}
+
+.education .timeline-item:last-child{
+    margin-bottom: 0;
+}
+
+.education .timeline-item:nth-child(odd){
+    padding-right: calc(50% + 30px);
+    text-align: right;
+}
+
+.education .timeline-item:nth-child(even){
+    padding-left: calc(50% + 30px);
+    text-align: left;
+}
+
+.education .timeline-item .timeline-dot{
+    position: absolute;
+    left: calc(50% - 8px);
+    top: 10px;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    box-shadow: 0 0 10px var(--main-color);
+}
+
+.education .timeline-item .timeline-date{
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.education .timeline-item .timeline-content{
+    padding: 1.5rem;
+    width: 35rem;
+    border: .2rem solid var(--main-color);
+    border-radius: 3rem;
+    background: var(--bg-color);
+    transition: all 0.5s ease;
+}
+
+.education .timeline-item .timeline-content:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--main-color);
+}
+
+.education .timeline-item .timeline-content h3{
+    font-size: 1.7rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.education .timeline-item .timeline-content p{
+    font-size: 1.2rem;
+    color: var(--text-color);
+    line-height: 1.8;
+    text-transform: lowercase;
+}
+
+.experience{
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    padding: 6rem 5%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    animation: fadeIn 1s ease;
+}
+
+.experience .heading{
+    color: var(--text-color);
+    font-size: 4.5rem;
+    margin-bottom: 3rem;
+    animation: slideInUp 1s ease;
+}
+
+.experience .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.experience .box-container .box{
+    background-color: var(--second-bg-color);
+    width: 40rem;
+    padding: 2rem;
+    border-radius: 3rem;
+    border: .2rem solid var(--main-color);
+    transition: all 0.5s ease;
+}
+
+.experience .box-container .box:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--main-color);
+}
+
+.experience .box-container .box h3{
+    font-size: 1.8rem;
+    color: var(--main-color);
+    margin-bottom: 1rem;
+}
+
+.experience .box-container .box p{
+    font-size: 1.3rem;
+    color: var(--text-color);
+    line-height: 1.8;
+    text-transform: lowercase;
+}
+
+.services{
+    min-height: 100vh;
+    background-color: var(--second-bg-color);
+    padding: 6rem 5%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    animation: fadeIn 1s ease;
+}
+
+.services .heading{
+    color: var(--text-color);
+    font-size: 4.5rem;
+    margin-bottom: 3rem;
+    animation: slideInUp 1s ease;
+}
+
+.services .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.services .box-container .box{
+    background-color: var(--main-color);
+    width: 40rem;
+    padding: 2rem;
+    border-radius: 3rem;
+    border: .2rem solid var(--main-color);
+    transition: all 0.5s ease;
+}
+
+.services .box-container .box:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--main-color);
+}
+
+.services .box-container .box h3{
+    font-size: 1.8rem;
+    color: #FFF;
+    margin-bottom: 1rem;
+}
+
+.services .box-container .box p{
+    font-size: 1.3rem;
+    color: #FFF;
+    line-height: 1.8;
+    text-transform: lowercase;
+}
+
+.contact{
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    padding: 6rem 5%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    animation: fadeIn 1s ease;
+}
+
+.contact .heading{
+    color: var(--text-color);
+    font-size: 4.5rem;
+    margin-bottom: 3rem;
+}
+
+.contact .heading span{
+    color: var(--main-color);
+}
+
+.contact .form-container{
+    width: 100%;
+}
+
+.contact .form-container form{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    width: 100%;
+}
+
+.contact .form-container form .inputs,
+.contact .form-container form .text{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 49%;
+}
+
+.contact .form-container form .inputs .input,
+.contact .form-container form .text textarea{
+    background-color: var(--bg-color);
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 90%;
+    border: .1rem solid var(--main-color);
+    outline: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+}
+
+.contact .form-container form .inputs .input:focus,
+.contact .form-container form .text textarea:focus{
+    box-shadow: 0 0 10px var(--main-color);
+}
+
+.contact .form-container form .text textarea{
+    height: 15rem;
+    resize: none;
+}
+
+.contact .form-container form .text .btn{
+    color: #FFF;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    background-color: var(--main-color);
+    box-shadow: 0 0 15px var(--main-color);
+    transition: all 0.3s ease;
+}
+
+.contact .form-container form .text .btn:hover{
+    box-shadow: 0 0 25px var(--main-color);
+    transform: translateY(-3px);
+}
+
+.footer{
+    background-color: var(--second-bg-color);
+    padding: 4rem 5%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer .icons{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer .icons a i{
+    color: var(--text-color);
+    font-size: 2.2rem;
+    margin: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.footer .icons a i:hover{
+    color: var(--main-color);
+    transform: scale(1.2);
+}
+
+.footer .navbar{
+    margin: 2rem 0;
+}
+
+.footer .navbar a{
+    font-size: 1.6rem;
+    color: var(--text-color);
+    font-weight: 500;
+    margin: 0 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.footer .navbar a:hover{
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.footer .credit p{
+    font-size: 1.4rem;
+    color: var(--light-color);
+}
+
+.footer .credit p i,
+.footer .credit p span{
+    color: var(--main-color);
+}
+
+@media(max-width:990px){
+    html{
+        font-size: 55.5%;
+    }
+    .home{
+        flex-flow: column-reverse;
+        padding: 8rem 0;
+        padding-top: 15rem;
+    }
+}
+
+@media(max-width:700px){
+    html{
+        font-size: 50.5%;
+    }
+    .home img{
+        height: 35rem;
+        width: 35rem;
+    }
+    .home{
+        padding: 8rem 0;
+    }
+    section{
+        padding: 1rem;
+    }
+    .header{
+        position: relative;
+        padding: 0;
+    }
+    .header .logo,
+    .header .menu{
+        padding: 1rem;
+    }
+    .menu i{
+        display: flex;
+    }
+    .header .navbar.active{
+        display: grid;
+    }
+    .header .navbar{
+        position: absolute;
+        top: 7rem;
+        display: none;
+        text-align: center;
+        justify-content: center;
+        background-color: var(--main-color);
+        width: 100%;
+        gap: 2rem;
+        padding: 1rem;
+    }
+    .header .navbar a.active{
+        color: #FFF;
+        text-decoration: none;
+    }
+    .header .navbar a{
+        width: 100%;
+        padding: 1rem;
+        color: #FFF;
+    }
+    .header .navbar a:hover,
+    .header .navbar a.active:hover{
+        background-color: var(--white);
+        color: var(--main-color);
+        text-decoration: none;
+    }
+    .theme-toggle {
+        padding: 1rem;
+    }
+}
+
+@media(max-width:450px){
+    .home .content p{
+        width: 35rem;
+    }
+    .education .timeline-items{
+        display: grid;
+    }
+    .contact .form-container form{
+        display: grid;
+    }
+    .contact .form-container form .inputs,
+    .contact .form-container form .text{
+        width: 100%;
+    }
+    .contact .form-container form .inputs .input,
+    .contact .form-container form .text textarea{
+        width: 100%;
+    }
+    .contact{
+        padding: 1rem 0;
+    }
+}
+</style>
+</head>
+<body>
+<header class="header">
+<a href="#" class="logo">Hamza <span>EL FEHRI</span></a>
+<div class="menu">
+<i class="fa fa-bars" aria-hidden="true"></i>
+</div>
+<nav class="navbar">
+<a href="#Accueil" class="active">accueil</a>
+<a href="#Education">éducation</a>
+<a href="#Experience">expérience</a>
+<a href="#CV">Projet</a>
+<a href="#Contact">contact</a>
+</nav>
+<div class="theme-toggle" id="themeToggle">
+<i class="fas fa-moon" id="theme-icon"></i>
+</div>
+</header>
+
+<section class="home" id="Accueil">
+<div class="content">
+<h1>salut, c'est <span>Hamza</span></h1>
+<h3 class="text-animation">je suis un <span></span></h3>
+<p>passionné par le développement web, l'analyse de données et les technologies sap. avec une expertise en java, react.js, php, et outils comme sap gui et power bi.</p>
+<div class="icons">
+<a href="https://www.linkedin.com/in/hamza-el-fehri-540a8a2a1/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+<a href="https://github.com/Hamzaelfihri" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a>
+<a href="https://www.instagram.com/_haamza___/" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+<a href="https://x.com/HamzaE42292" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+</div>
+<div class="flex-btn">
+<a href="cv_elfehri_hamza.pdf" class="btn hire" download>CV</a>
+<a href="#Contact" class="btn">contact</a>
+</div>
+</div>
+<img src="image.jpg" alt="">
+</section>
+
+<section class="education" id="Education">
+<h2 class="heading">éducation</h2>
+<div class="timeline-items">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2025-2027</div>
+<div class="timeline-content">
+<h3>master expert en architecture et développement logiciel</h3>
+<p>école ingetis paris. formation axée sur l'architecture logicielle, le développement avancé et les méthodologies agiles.</p>   
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2024-2025</div>
+<div class="timeline-content">
+<h3>licence professionnelle informatique et mathématiques appliquées</h3>
+<p>université chouaïb doukkali. spécialisation en modélisation de données et applications informatiques.</p>   
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-date">2022-2024</div>
+<div class="timeline-content">
+<h3>bts développement des systèmes d’information</h3>
+<p>lycée technique de fès. formation pratique sur le développement web, les bases de données et les réseaux.</p>   
+</div>
+</div>
+</div>
+</section>
+
+<section class="experience" id="Experience">
+<h2 class="heading">expérience</h2>
+<div class="box-container">
+<div class="box">
+<h3>stage - arti web, fès maroc</h3>
+<p>
+date: avril 2025 - juin 2025<br>
+sujet: "réalisation d'une plateforme de réservations des services en ligne"<br>
+- interface utilisateur pour la prise de rendez-vous avec intégration de calendly<br>
+- panneau d'administration:<br>
+  - gestion des services (ajout, modification, suppression)<br>
+  - suivi des réservations (confirmation, annulation)<br>
+  - gestion des clients (modification, suppression)<br>
+</p>
+</div>
+<div class="box">
+<h3>stage - socosem, fès maroc</h3>
+<p>
+date: juin 2024 - juillet 2024<br>
+sujet: "création d’une application de gestion et de vente des produits agricoles"<br>
+- interface de gestion pour les producteurs: ajout, édition et suppression des produits<br>
+- catalogue en ligne des produits agricoles avec filtres et recherche<br>
+- fonctionnalité de panier et de validation de commande<br>
+- gestion des comptes clients et administrateurs<br>
+</p>
+</div>
+<div class="box">
+<h3>stage - firaco fiduciaire, casablanca maroc</h3>
+<p>
+date: août 2023 - septembre 2023<br>
+sujet: "création d’un site web vitrine statique pour une entreprise"<br>
+- conception d’une interface utilisateur responsive pour présenter l’entreprise, ses services, ses offres et ses coordonnées<br>
+- intégration des sections: accueil, à propos, services, offres, contact<br>
+</p>
+</div>
+</div>
+</section>
+
+<section class="services" id="CV">
+<h2 class="heading">Projets</h2>
+<div class="box-container">
+<div class="box">
+<h3>chatbot personnalisé avec python et json</h3>
+<p>développement d’un moteur de conversation simple basé sur un fichier json structuré, gestion des intentions, mots-clés et réponses avec python, incluant une interface interactive.</p>
+</div>
+<div class="box">
+<h3>implémentation d’un nas personnel</h3>
+<p>simulation logicielle d’un système de stockage en réseau (nas), configuration réseau locale pour hébergement sécurisé, gestion des utilisateurs, droits d’accès et principes de sécurité avec linux.</p>
+</div>
+<div class="box">
+<h3>plateforme e-commerce avec react et laravel</h3>
+<p>développement d’une plateforme e-commerce réactive utilisant react.js pour l’interface et laravel pour le backend, avec authentification utilisateur, gestion des produits et intégration de paiement sécurisé.</p>
+</div>
+<div class="box">
+<h3>application d’entreprise avec java et j2ee</h3>
+<p>conception et implémentation d’une application d’entreprise utilisant java et j2ee, incluant un backend robuste avec servlets, jsp et intégration mysql pour la gestion et les rapports de données.</p>
+</div>
+</div>
+</section>
+
+<section class="contact" id="Contact">
+<h2 class="heading">contactez <span>moi</span></h2>
+<div class="form-container">
+<form action="#" method="get">
+<div class="inputs">
+<input type="text" placeholder="nom complet" class="input">
+<input type="email" placeholder="email" class="input">
+<input type="number" placeholder="numéro de téléphone" class="input">
+<input type="text" placeholder="sujet" class="input">
+</div>
+<div class="text">
+<textarea placeholder="votre message"></textarea>
+<a href="#" class="btn">envoyer message</a>
+</div>
+</form>
+</div>
+</section>
+
+<footer class="footer">
+<div class="icons">
+<a href="https://www.linkedin.com/in/hamza-el-fehri-540a8a2a1/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+<a href="https://github.com/Hamzaelfihri" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a>
+<a href="https://www.instagram.com/_haamza___/" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+<a href="https://x.com/HamzaE42292" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+</div>
+<nav class="navbar">
+<a href="#Accueil">accueil</a>
+<a href="#Education">éducation</a>
+<a href="#Experience">expérience</a>
+<a href="#CV">Projets</a>
+<a href="#Contact">contact</a>
+</nav>
+<div class="credit"><p><i class="fa fa-copyright" aria-hidden="true"></i> Hamza EL FEHRI <span>||</span> tous droits réservés</p></div>
+</footer>
+
+<script>
+// Basculer le menu
+const menu = document.querySelector('.menu i');
+const navbar = document.querySelector('.header .navbar');
+
+menu.onclick = () => {
+    navbar.classList.toggle('active');
+}
+
+// Basculer le mode sombre/clair
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('theme-icon');
+const body = document.body;
+
+// Vérifier la préférence de thème sauvegardée
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    body.classList.add('light-mode');
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-mode');
+    
+    if (body.classList.contains('light-mode')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+// Lien de navigation actif au défilement
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.navbar a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+</body>
+</html>
